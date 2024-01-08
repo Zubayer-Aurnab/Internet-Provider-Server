@@ -25,9 +25,15 @@ async function run() {
     const CustomerCollection = client
       .db("Internet-provider")
       .collection("customers");
+    //Add customer to collection
     app.post("/customers", async (req, res) => {
       const customer = req.body;
-      const result =  await CustomerCollection.insertOne(customer);
+      const result = await CustomerCollection.insertOne(customer);
+      res.send(result);
+    });
+    //Get All user data
+    app.get("/all-customers", async (req, res) => {
+      const result = await CustomerCollection.find().toArray();
       res.send(result);
     });
     // Connect the client to the server	(optional starting in v4.7)
